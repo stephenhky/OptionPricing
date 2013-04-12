@@ -9,7 +9,7 @@ import numpy as np
 
 class AmericanCallBinomialTree(StockBinomialTree):
     '''
-    Binomial Tree for European call option
+    Binomial Tree for American call option
     '''
 
 

@@ -9,7 +9,7 @@ import numpy as np
 
 class EuropeanPutBinomialTree(StockBinomialTree):
     '''
-    Binomial Tree for European call option
+    Binomial Tree for European put option
     '''
 
 
