@@ -1,5 +1,5 @@
 '''
-Created on Apr 11, 2013
+Created on Apr 12, 2013
 
 @author: hok1
 '''
@@ -7,7 +7,7 @@ Created on Apr 11, 2013
 from StockBinomialTree import StockBinomialTree
 import numpy as np
 
-class EuropeanCallBinomialTree(StockBinomialTree):
+class EuropeanPutBinomialTree(StockBinomialTree):
     '''
     Binomial Tree for European call option
     '''
@@ -31,11 +31,11 @@ class EuropeanCallBinomialTree(StockBinomialTree):
         
     def calculateOptionPriceTree(self):
         for j in range(self.no_steps+1):
-            self.optionPriceTree[self.no_steps][j] = max(self.stockTree[self.no_steps][j]-self.X, 0)
+            self.optionPriceTree[self.no_steps][j] = max(self.X-self.stockTree[self.no_steps][j], 0)
         for i in range(self.no_steps-1, -1, -1):
             for j in range(i+1):
                 self.optionPriceTree[i][j] = np.exp(-self.rdt)*(self.p*self.optionPriceTree[i+1][j]+(1-self.p)*self.optionPriceTree[i+1][j+1])
 
 if __name__ == '__main__':
-    euroCall = EuropeanCallBinomialTree(S0=100, X=105, r=0.05, sigma=1, T=4, no_steps=4)
-    print euroCall.getPrice()
+    euroPut = EuropeanPutBinomialTree(S0=100, X=105, r=0.05, sigma=1.0, T=4, no_steps=4)
+    print euroPut.getPrice()
