@@ -51,3 +51,6 @@ class StockBinomialTree:
 
     def getPrice(self):
         return self.optionPriceTree[0][0]
+
+    def calculateOptionPriceTree(self):
+        raise Exception('Not implemented!')

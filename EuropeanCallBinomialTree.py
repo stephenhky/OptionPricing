@@ -1,8 +1,3 @@
-'''
-Created on Apr 11, 2013
-
-@author: hok1
-'''
 
 from StockBinomialTree import StockBinomialTree
 import numpy as np
@@ -17,16 +12,8 @@ class EuropeanCallBinomialTree(StockBinomialTree):
         '''
         Constructor
         '''
-        self.S0 = S0
-        self.X = X
-        self.r = r
-        self.sigma = sigma
+        StockBinomialTree.__init__(self, S0=S0, r=r, sigma=sigma, T=T, no_steps=no_steps)
         self.T = T
-        self.no_steps = no_steps
-        
-        self.initializeParameters()
-        self.initializeStockTree()
-        self.initializeOptionPriceTree()
         self.calculateOptionPriceTree()
         
     def calculateOptionPriceTree(self):
