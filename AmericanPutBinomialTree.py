@@ -13,7 +13,7 @@ class AmericanPutBinomialTree(StockBinomialTree):
         Constructor
         '''
         StockBinomialTree.__init__(self, S0=S0, r=r, sigma=sigma, T=T, no_steps=no_steps)
-        self.T = T
+        self.X = X
         
         self.calculateOptionPriceTree()
         
