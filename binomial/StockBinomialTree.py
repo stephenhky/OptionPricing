@@ -28,12 +28,11 @@ class StockBinomialTree:
         
     def initializeParameters(self):
         self.dt = self.T / self.no_steps
-        self.rdt=self.r*self.dt
-        self.sigma2dt=self.sigma*self.sigma*self.dt
-        self.p=0.65
-        p = self.p
-        self.u = np.exp(self.rdt)+np.sqrt((1-p)/p*np.exp(0.5*self.sigma2dt))
-        self.d = np.exp(-self.rdt)-np.sqrt(p/(1-p)*np.exp(0.5*self.sigma2dt))
+        self.rdt = self.r * self.dt
+        self.sigma2dt = self.sigma * self.sigma * self.dt
+        self.u = np.exp(np.sqrt(self.sigma2dt))
+        self.d = 1. / self.u
+        self.p = (np.exp(self.rdt)-self.d) / (self.u-self.d)
         
     def initializeStockTree(self):
         stockTree = []
