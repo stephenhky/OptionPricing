@@ -73,8 +73,7 @@ class EuropeanCallBinomialTree(StockBinomialTree):
             self.optionPriceTree[self.no_steps][j] = max(self.stockTree[self.no_steps][j] - self.X, 0)
         for i in range(self.no_steps - 1, -1, -1):
             for j in range(i + 1):
-                self.optionPriceTree[i][j] = np.exp(-self.rdt) * (
-                    self.p * self.optionPriceTree[i + 1][j] + (1 - self.p) * self.optionPriceTree[i + 1][j + 1])
+                self.optionPriceTree[i][j] = np.exp(-self.rdt) * (self.p * self.optionPriceTree[i + 1][j] + (1 - self.p) * self.optionPriceTree[i + 1][j + 1])
 
 
 class EuropeanPutBinomialTree(StockBinomialTree):
@@ -95,8 +94,7 @@ class EuropeanPutBinomialTree(StockBinomialTree):
             self.optionPriceTree[self.no_steps][j] = max(self.X - self.stockTree[self.no_steps][j], 0)
         for i in range(self.no_steps - 1, -1, -1):
             for j in range(i + 1):
-                self.optionPriceTree[i][j] = np.exp(-self.rdt) * (
-                self.p * self.optionPriceTree[i + 1][j] + (1 - self.p) * self.optionPriceTree[i + 1][j + 1])
+                self.optionPriceTree[i][j] = np.exp(-self.rdt) * (self.p * self.optionPriceTree[i + 1][j] + (1 - self.p) * self.optionPriceTree[i + 1][j + 1])
 
 
 class AmericanCallBinomialTree(StockBinomialTree):
@@ -119,8 +117,7 @@ class AmericanCallBinomialTree(StockBinomialTree):
         for i in range(self.no_steps - 1, -1, -1):
             for j in range(i + 1):
                 imValue = self.stockTree[i][j] - self.X
-                euroCallValue = np.exp(-self.rdt) * (
-                self.p * self.optionPriceTree[i + 1][j] + (1 - self.p) * self.optionPriceTree[i + 1][j + 1])
+                euroCallValue = np.exp(-self.rdt) * (self.p * self.optionPriceTree[i + 1][j] + (1 - self.p) * self.optionPriceTree[i + 1][j + 1])
                 self.optionPriceTree[i][j] = max(imValue, euroCallValue)
 
 
@@ -144,6 +141,5 @@ class AmericanPutBinomialTree(StockBinomialTree):
         for i in range(self.no_steps - 1, -1, -1):
             for j in range(i + 1):
                 imValue = self.X - self.stockTree[i][j]
-                euroPutValue = np.exp(-self.rdt) * (
-                self.p * self.optionPriceTree[i + 1][j] + (1 - self.p) * self.optionPriceTree[i + 1][j + 1])
+                euroPutValue = np.exp(-self.rdt) * (self.p * self.optionPriceTree[i + 1][j] + (1 - self.p) * self.optionPriceTree[i + 1][j + 1])
                 self.optionPriceTree[i][j] = max(imValue, euroPutValue)
