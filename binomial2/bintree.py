@@ -74,7 +74,7 @@ class EuropeanCallBinomialTree(StockBinomialTree):
         for i in range(self.no_steps - 1, -1, -1):
             for j in range(i + 1):
                 self.optionPriceTree[i][j] = np.exp(-self.rdt) * (
-                self.p * self.optionPriceTree[i + 1][j] + (1 - self.p) * self.optionPriceTree[i + 1][j + 1])
+                    self.p * self.optionPriceTree[i + 1][j] + (1 - self.p) * self.optionPriceTree[i + 1][j + 1])
 
 
 class EuropeanPutBinomialTree(StockBinomialTree):
