@@ -34,11 +34,8 @@ class StockBinomialTree:
     def get_stockprice(self, i, j):
         return bt.tree_stockprice(self.S0, self.u, self.d, i, j)
 
-    def initializeOptionPriceTree(self):
-        raise Exception('Not implemented!')
-
     def getPrice(self):
-        raise Exception('Not implemented!')
+        return self.price
 
     def calculateOptionPriceTree(self):
         raise Exception('Not implemented!')
@@ -60,8 +57,6 @@ class EuropeanCallBinomialTree(StockBinomialTree):
     def calculateOptionPriceTree(self):
         self.price = bt.eurocall(self.S0, self.X, self.rdt, self.p, self.u, self.d, self.no_steps)
 
-    def getPrice(self):
-        return self.price
 
 class EuropeanPutBinomialTree(StockBinomialTree):
     '''
@@ -77,11 +72,7 @@ class EuropeanPutBinomialTree(StockBinomialTree):
         self.calculateOptionPriceTree()
 
     def calculateOptionPriceTree(self):
-        for j in range(self.no_steps + 1):
-            self.optionPriceTree[self.no_steps][j] = max(self.X - self.get_stockprice(self.no_steps, j), 0)
-        for i in range(self.no_steps - 1, -1, -1):
-            for j in range(i + 1):
-                self.optionPriceTree[i][j] = np.exp(-self.rdt) * (self.p * self.optionPriceTree[i + 1][j] + (1 - self.p) * self.optionPriceTree[i + 1][j + 1])
+        self.price = bt.europut(self.S0, self.X, self.rdt, self.p, self.u, self.d, self.no_steps)
 
 
 class AmericanCallBinomialTree(StockBinomialTree):
@@ -99,13 +90,7 @@ class AmericanCallBinomialTree(StockBinomialTree):
         self.calculateOptionPriceTree()
 
     def calculateOptionPriceTree(self):
-        for j in range(self.no_steps + 1):
-            self.optionPriceTree[self.no_steps][j] = max(self.get_stockprice(self.no_steps, j) - self.X, 0)
-        for i in range(self.no_steps - 1, -1, -1):
-            for j in range(i + 1):
-                imValue = self.get_stockprice(i, j) - self.X
-                euroCallValue = np.exp(-self.rdt) * (self.p * self.optionPriceTree[i + 1][j] + (1 - self.p) * self.optionPriceTree[i + 1][j + 1])
-                self.optionPriceTree[i][j] = max(imValue, euroCallValue)
+        self.price = bt.amcall(self.S0, self.X, self.rdt, self.p, self.u, self.d, self.no_steps)
 
 
 class AmericanPutBinomialTree(StockBinomialTree):
@@ -123,10 +108,4 @@ class AmericanPutBinomialTree(StockBinomialTree):
         self.calculateOptionPriceTree()
 
     def calculateOptionPriceTree(self):
-        for j in range(self.no_steps + 1):
-            self.optionPriceTree[self.no_steps][j] = max(self.X - self.get_stockprice(self.no_steps, j), 0)
-        for i in range(self.no_steps - 1, -1, -1):
-            for j in range(i + 1):
-                imValue = self.X - self.get_stockprice(i, j)
-                euroPutValue = np.exp(-self.rdt) * (self.p * self.optionPriceTree[i + 1][j] + (1 - self.p) * self.optionPriceTree[i + 1][j + 1])
-                self.optionPriceTree[i][j] = max(imValue, euroPutValue)
+        self.price = bt.amput(self.S0, self.X, self.rdt, self.p, self.u, self.d, self.no_steps)

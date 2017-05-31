@@ -22,6 +22,36 @@ python module binomialtree ! in
                 integer intent(in) :: nbsteps
                 real :: price
             end function eurocall
+            function europut(s0,x,rdt,p,u,d,nbsteps) result (price) ! in :binomialtree:binomialtree.f90:binomialtree
+                real intent(in) :: s0
+                real intent(in) :: x
+                real intent(in) :: rdt
+                real intent(in) :: p
+                real intent(in) :: u
+                real intent(in) :: d
+                integer intent(in) :: nbsteps
+                real :: price
+            end function europut
+            function amcall(s0,x,rdt,p,u,d,nbsteps) result (price) ! in :binomialtree:binomialtree.f90:binomialtree
+                real intent(in) :: s0
+                real intent(in) :: x
+                real intent(in) :: rdt
+                real intent(in) :: p
+                real intent(in) :: u
+                real intent(in) :: d
+                integer intent(in) :: nbsteps
+                real :: price
+            end function amcall
+            function amput(s0,x,rdt,p,u,d,nbsteps) result (price) ! in :binomialtree:binomialtree.f90:binomialtree
+                real intent(in) :: s0
+                real intent(in) :: x
+                real intent(in) :: rdt
+                real intent(in) :: p
+                real intent(in) :: u
+                real intent(in) :: d
+                integer intent(in) :: nbsteps
+                real :: price
+            end function amput
         end module binomialtree
     end interface 
 end python module binomialtree
