@@ -8,7 +8,6 @@ contains
 real function tree_stockprice(S0, u, d, i, j) result(price)
   real, intent(in) :: S0, u, d
   integer, intent(in) :: i, j
-  real :: price
   ! using Python array indexing (start from 0)
   price = S0 * u**(i-j) * d**j
 end function tree_stockprice
@@ -16,13 +15,12 @@ end function tree_stockprice
 real function eurocall(S0, X, rdt, p, u, d, nbsteps) result(price)
   real, intent(in) :: S0, X, rdt, p, u, d
   integer, intent(in) :: nbsteps
-  real :: price
   real, dimension(nbsteps+1) :: pricearr
   integer :: i, j
   do j = 0, nbsteps
      pricearr(j+1) = max(tree_stockprice(S0, u, d, nbsteps, j)-X, 0.0)
   end do
-  do i = nbsteps-1, 0, 01
+  do i = nbsteps-1, 0, -1
      do j = 0, i
         pricearr(j+1) = exp(-rdt)*(p*pricearr(j+1)+(1-p)*pricearr(j+2))
      end do
