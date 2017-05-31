@@ -12,9 +12,11 @@ python module binomialtree ! in
                 integer intent(in) :: j
                 real :: price
             end function tree_stockprice
-            function eurocall(s0,x,u,d,nbsteps) result (price) ! in :binomialtree:binomialtree.f90:binomialtree
+            function eurocall(s0,x,rdt,p,u,d,nbsteps) result (price) ! in :binomialtree:binomialtree.f90:binomialtree
                 real intent(in) :: s0
                 real intent(in) :: x
+                real intent(in) :: rdt
+                real intent(in) :: p
                 real intent(in) :: u
                 real intent(in) :: d
                 integer intent(in) :: nbsteps

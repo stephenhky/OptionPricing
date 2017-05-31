@@ -5,7 +5,7 @@ public tree_stockprice, eurocall
 
 contains
 
-function tree_stockprice(S0, u, d, i, j) result(price)
+real function tree_stockprice(S0, u, d, i, j) result(price)
   real, intent(in) :: S0, u, d
   integer, intent(in) :: i, j
   real :: price
@@ -13,8 +13,8 @@ function tree_stockprice(S0, u, d, i, j) result(price)
   price = S0 * u**(i-j) * d**j
 end function tree_stockprice
 
-function eurocall(S0, X, u, d, nbsteps) result(price)
-  real, intent(in) :: S0, X, u, d
+real function eurocall(S0, X, rdt, p, u, d, nbsteps) result(price)
+  real, intent(in) :: S0, X, rdt, p, u, d
   integer, intent(in) :: nbsteps
   real :: price
   real, dimension(nbsteps+1) :: pricearr
@@ -24,7 +24,7 @@ function eurocall(S0, X, u, d, nbsteps) result(price)
   end do
   do i = nbsteps-1, 0, 01
      do j = 0, i
-        ! calculation of price
+        pricearr(j+1) = exp(-rdt)*(p*pricearr(j+1)+(1-p)*pricearr(j+2))
      end do
   end do
   price = pricearr(1)
